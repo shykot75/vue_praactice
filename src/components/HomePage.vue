@@ -78,16 +78,58 @@
 
   <h4>Showing Child Component to HopagePage</h4>
   <ChildComponent text="i am passing this text to child component" :childUser="childUser" :parentFun="callParent" />
+  <hr>
+
+  <h3>Reuse Component - 16</h3>
+  <ul>
+    <li v-for="(items, dIdx) in  userComData" :key="dIdx">
+        <UserComponent :comData="(items)" :getComName="getComName"/>
+    </li>
+  </ul>
+  <hr>
+
+  <div>
+    <h2>HTML Binding - 17</h2>
+    <div v-html="bindTag"></div>
+  </div>
+  <hr>
+
+  <div>
+    <h2>Class Binding - 18</h2>
+    <h4 class="otherClass" :class="{green: colorful}">Background Color</h4>
+    <button v-on:click="colorful=!colorful">Toggle Background</button>
+  </div>
+  <hr>
+
+  <div>
+    <h2>send child to parent data component - 20</h2>
+    <Child :getUser="getUserName"/>
+    <p>{{child_user}}</p>
+  </div>
+  <hr>
+
+  <div>
+    <h2>Refs - 21</h2>
+    <input type="text" ref="first_name">
+    <button v-on:click="getRef()">Click Me</button>
+  </div>
+  <hr>
+
+
 
 
 </template>
 
 <script>
 import ChildComponent from "@/components/ChildComponent.vue";
+import UserComponent from "@/components/UserComponent.vue";
+import Child from "@/components/Child.vue";
 export default {
   name: 'HomePage',
   components: {
     ChildComponent,
+    UserComponent,
+    Child,
   },
 
   data(){
@@ -148,6 +190,19 @@ export default {
       ],
       childUser: {'name': 'child artisat', 'address': 'Dhaka' },
 
+      userComData: [
+        {
+          'com_name' : 'Shykot', 'com_email' : 'shykot@gmail.com', 'com_password' : '123456',},
+        {
+          'com_name' : 'Tamanna', 'com_email' : 'tamanna@gmail.com', 'com_password' : '123456',},
+        {
+          'com_name' : 'hasan', 'com_email' : 'hasan@gmail.com', 'com_password' : '123456',},
+      ],
+
+      bindTag: "<h1>this is binding</h1>",
+      colorful: true,
+      child_user: "",
+
 
     }
   },
@@ -185,6 +240,19 @@ export default {
     callParent(){
       alert("Child Function called")
     },
+    getComName(comName) {
+      alert(comName);
+    },
+    getUserName(userName){
+      // alert(userName);
+      this.child_user = userName;
+    },
+    getRef(){
+      this.$refs.first_name.focus();
+      let val = this.$refs.first_name.value;
+      alert(val);
+      this.$refs.first_name.style.color="red";
+    },
 
 
   }
@@ -195,5 +263,14 @@ export default {
 <style scoped>
 h1 {
   color: orange;
+}
+
+.green{
+  background-color: green;
+  width: 300px;
+  padding: 10px;
+}
+.otherClass{
+  font-style: italic;
 }
 </style>
