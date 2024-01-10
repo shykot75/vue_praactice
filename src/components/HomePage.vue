@@ -115,6 +115,43 @@
   </div>
   <hr>
 
+  <div>
+    <h2>Simple Form - 22, 23</h2>
+    <input type="text" placeholder="Enter Email" v-model="form.email"> <br>
+    <br>
+    <input type="password" placeholder="Enter Password" v-model="form.password"> <br>
+    <br>
+
+    <label for="">Country</label>
+    <select v-model="form.country">
+      <option value="Bangladesh">Bangladesh</option>
+      <option value="Usa">Usa</option>
+      <option value="Uk">Uk</option>
+    </select>
+    <br>
+
+    <p>Language: </p>
+    <label for="language_PHP">PHP</label>
+    <input type="checkbox" class="ml-4" value="language_PHP" name="language_PHP" id="language_PHP" v-model="form.language">
+    <label for="language_javascript">JavaScript</label>
+    <input type="checkbox" class="ml-4" value="language_javascript" name="language_javascript" id="language_javascript" v-model="form.language">
+    <br>
+
+    <p>Gender: </p>
+    <input type="radio" name="gender" id="male" value="male" v-model="form.gender">
+    <label for="male">Male</label>
+    <input type="radio" name="gender" id="female" value="female" v-model="form.gender" >
+    <label for="female">Female</label>
+    <br>
+
+
+
+
+    <button type="submit" v-on:click="login()">Login</button>
+    <p>Info: {{ form }}</p>
+  </div>
+  <hr>
+
 
 
 
@@ -203,6 +240,14 @@ export default {
       colorful: true,
       child_user: "",
 
+      form: {
+        email: '',
+        password: '',
+        country: '',
+        language: [],
+        gender: '',
+      },
+
 
     }
   },
@@ -253,6 +298,9 @@ export default {
       alert(val);
       this.$refs.first_name.style.color="red";
     },
+    login(){
+      console.log("Login Data: ", this.form);
+    }
 
 
   }
